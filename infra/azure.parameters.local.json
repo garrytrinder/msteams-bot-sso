@@ -3,19 +3,19 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "resourceBaseName": {
-      "value": "bot${{RESOURCE_SUFFIX}}"
+      "value": "bot-msteams-bot-${{TEAMSFX_ENV}}"
     },
     "botAadAppClientId": {
       "value": "${{BOT_ID}}"
     },
-    "botAadAppClientSecret": {
-      "value": "${{BOT_PASSWORD}}"
-    },
-    "webAppSKU": {
-      "value": "B1"
-    },
     "botDisplayName": {
-      "value": "msteams-bot"
+      "value": "bot-msteams-bot-${{TEAMSFX_ENV}}"
+    },
+    "botAppDomain": {
+      "value": "${{BOT_DOMAIN}}"
+    },
+    "botAddAppClientSecret": {
+      "value": "${{BOT_PASSWORD}}"
     }
   }
 }

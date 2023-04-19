@@ -1,4 +1,4 @@
-@maxLength(20)
+@maxLength(21)
 @minLength(4)
 @description('Used to generate names for all resources in this file')
 param resourceBaseName string
@@ -10,6 +10,9 @@ param botServiceName string = resourceBaseName
 param botServiceSku string = 'F0'
 param botAadAppClientId string
 param botAppDomain string
+
+@secure()
+param botAddAppClientSecret string
 
 // Register your web service as a bot with the Bot Framework
 resource botService 'Microsoft.BotService/botServices@2021-03-01' = {
@@ -33,5 +36,28 @@ resource botServiceMsTeamsChannel 'Microsoft.BotService/botServices/channels@202
   name: 'MsTeamsChannel'
   properties: {
     channelName: 'MsTeamsChannel'
+  }
+}
+
+resource botServicesMicrosoftGraphConnection 'Microsoft.BotService/botServices/connections@2022-09-15' = {
+  parent: botService
+  name: 'MicrosoftGraph'
+  location: 'global'
+  properties: {
+    serviceProviderDisplayName: 'Azure Active Directory v2'
+    serviceProviderId: '30dd229c-58e3-4a48-bdfd-91ec48eb906c'
+    clientId: botAadAppClientId
+    clientSecret: botAddAppClientSecret
+    scopes: 'email offline_access openid profile User.Read'
+    parameters: [
+      {
+        key: 'tenantID'
+        value: 'common'
+      }
+      {
+        key: 'tokenExchangeUrl'
+        value: 'api://botid-${botAadAppClientId}'
+      }
+    ]
   }
 }

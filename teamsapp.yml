@@ -9,14 +9,14 @@ environmentFolderPath: ./env
 provision:
   - uses: teamsApp/create # Creates a Teams app
     with:
-      name: msteams-bot-sso-${{TEAMSFX_ENV}} # Teams app name
+      name: msteams-bot-${{TEAMSFX_ENV}} # Teams app name
     writeToEnvironmentFile:
       # Write the information of created resources into environment file for the specified environment variable(s).
       teamsAppId: TEAMS_APP_ID
 
   - uses: botAadApp/create # Creates a new or reuses an existing Azure Active Directory application for bot.
     with:
-      name: msteams-bot-sso-${{TEAMSFX_ENV}} # The Azure Active Directory application's display name
+      name: msteams-bot-${{TEAMSFX_ENV}} # The Azure Active Directory application's display name
     writeToEnvironmentFile:
       botId: BOT_ID # The Azure Active Directory application's client id created for bot.
       botPassword: SECRET_BOT_PASSWORD # The Azure Active Directory application's client secret created for bot. 
@@ -84,4 +84,4 @@ publish:
     writeToEnvironmentFile:
       # Write the information of created resources into environment file for the specified environment variable(s).
       publishedAppId: TEAMS_APP_PUBLISHED_APP_ID
-projectId: 5ed0aebc-68a5-4890-b54b-1f4c7339a1b3
+projectId: d73bcf44-7531-42ad-9f07-a7a7139823a5

@@ -1,0 +1,47 @@
+{
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.12/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.12",
+    "version": "1.0.0",
+    "id": "724f1a4e-d623-4060-ae62-9f201ca5cda1",
+    "packageName": "com.microsoft.teams.extension",
+    "developer": {
+        "name": "Teams App, Inc.",
+        "websiteUrl": "https://example.azurewebsites.net",
+        "privacyUrl": "https://example.azurewebsites.net/privacy",
+        "termsOfUseUrl": "https://example.azurewebsites.net/termsofuse"
+    },
+    "icons": {
+        "color": "color.png",
+        "outline": "outline.png"
+    },
+    "name": {
+        "short": "msteams-bot-local",
+        "full": "msteams-bot-local"
+    },
+    "description": {
+        "short": "Short description for msteams-bot-local.",
+        "full": "Full description of msteams-bot-local."
+    },
+    "accentColor": "#FFFFFF",
+    "bots": [
+        {
+            "botId": "724f1a4e-d623-4060-ae62-9f201ca5cda1",
+            "scopes": [
+                "personal"
+            ],
+            "supportsFiles": false,
+            "isNotificationOnly": false
+        }
+    ],
+    "permissions": [
+        "identity",
+        "messageTeamMembers"
+    ],
+    "validDomains": [
+        "token.botframework.com"
+    ],
+    "webApplicationInfo": {
+        "id": "724f1a4e-d623-4060-ae62-9f201ca5cda1",
+        "resource": "api://botid-724f1a4e-d623-4060-ae62-9f201ca5cda1"
+    }
+}

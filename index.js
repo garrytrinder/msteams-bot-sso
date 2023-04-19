@@ -7,10 +7,14 @@ const restify = require("restify");
 // See https://aka.ms/bot-services to learn more about the different parts of a bot.
 const {
   CloudAdapter,
+  ConversationState,
+  MemoryStorage,
+  UserState,
   ConfigurationServiceClientCredentialFactory,
   ConfigurationBotFrameworkAuthentication,
 } = require("botbuilder");
-const { TeamsBot } = require("./teamsBot");
+const { TeamsBot } = require('./bots/teamsBot');
+const { MainDialog } = require('./dialogs/mainDialog');
 const config = require("./config");
 
 // Create adapter.
@@ -18,7 +22,7 @@ const config = require("./config");
 const credentialsFactory = new ConfigurationServiceClientCredentialFactory({
   MicrosoftAppId: config.botId,
   MicrosoftAppPassword: config.botPassword,
-  MicrosoftAppType: "MultiTenant",
+  MicrosoftAppType: config.botType,
 });
 
 const botFrameworkAuthentication = new ConfigurationBotFrameworkAuthentication(
@@ -38,10 +42,21 @@ adapter.onTurnError = async (context, error) => {
   // Send a message to the user
   await context.sendActivity(`The bot encountered an unhandled error:\n ${error.message}`);
   await context.sendActivity("To continue to run this bot, please fix the bot source code.");
+
+  // Clear out state
+  await conversationState.delete(context);
 };
 
+const memoryStorage = new MemoryStorage();
+
+// Create conversation and user state with in-memory storage provider.
+const conversationState = new ConversationState(memoryStorage);
+const userState = new UserState(memoryStorage);
+
+// Create the main dialog.
+const dialog = new MainDialog();
 // Create the bot that will handle incoming messages.
-const bot = new TeamsBot();
+const bot = new TeamsBot(conversationState, userState, dialog);
 
 // Create HTTP server.
 const server = restify.createServer();
